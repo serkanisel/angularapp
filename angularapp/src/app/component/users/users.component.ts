@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
+import { NullInjector } from '@angular/core/src/di/injector';
 
 @Component({
   selector: 'app-users',
@@ -7,10 +8,23 @@ import { User } from '../../models/User';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  
+user: User = {
+    firstName: '',
+    lastName: '',
+    age: null,
+    address: {
+      street: '',
+      city: '',
+      state: ''
+    },
+    hide:false
+  }
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = true;
-  enabledAdd: boolean = true;
+  enabledAdd: boolean = false;
+  showUserForm: boolean = false;
 
   constructor() { }
 
@@ -26,7 +40,8 @@ export class UsersComponent implements OnInit {
               street: '50 Main St'
           },
           isActive: true,
-          registered: new Date('01/02/2018 08:30:00')
+          registered: new Date('01/02/2018 08:30:00'),
+          hide:true
         },
         {
           firstName: 'Kevin',
@@ -38,7 +53,8 @@ export class UsersComponent implements OnInit {
               street: 'Empire St 21.'
           },
           isActive: false,
-          registered: new Date('03/11/2017 06:20:00')
+          registered: new Date('03/11/2017 06:20:00'),
+          hide:true
         },
         {
           firstName: 'Karen',
@@ -50,7 +66,8 @@ export class UsersComponent implements OnInit {
               street: '45 School St'
           },
           isActive: true,
-          registered: new Date('11/02/2016 10:30:00')
+          registered: new Date('11/02/2016 10:30:00'),
+          hide: true
         }
       ];
 
@@ -65,8 +82,32 @@ export class UsersComponent implements OnInit {
       this.loaded = true;
     }
 
-    addUser(user: User) {
-      this.users.push(user);
+    addUser() {
+      this.user.isActive =true;
+      this.user.registered=new Date();
+      this.users.unshift(this.user);
+
+      this.user = {
+        firstName: '',
+        lastName: '',
+        age: null,
+        address: {
+          street: '',
+          city: '',
+          state: ''
+        },
+        hide:false
+      }
     }
 
+    fireEvent(e) {
+      console.log(e.type);
+    }
+
+    onSubmit() {
+      console.log(123);
+    }
+    // toogleHide(user: User) {
+    //   user.hide = !user.hide;
+    // }
 }
