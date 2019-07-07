@@ -19,11 +19,7 @@ export class UserComponent implements OnInit {
             firstName: 'Dana',
             lastName: 'Veli',
             age: 30,
-            address: {
-                city: 'Boston',
-                state: 'MA',
-                street: '50 Main St'
-            },
+            email:'danaveli@gmail.com',
             hide: false
         };
      }
